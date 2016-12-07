@@ -20,8 +20,10 @@ var dronesSettings = new Settings("/drones?format=json");
 
 var droneMem = [];
 
-request(dronesSettings, function (error, response, drones) {
+request(dronesSettings, function (error, response, dronesString) {
+	var drones = JSON.parse(dronesString);
 	console.log(drones);
+	console.log("***************************************************************************");
 	drones.forEach(function (drone) {
 		var droneSettings = new Settings("/drones/" + drone.id + "?format=json")
 		request(droneSettings, function (error, response, drone) {
