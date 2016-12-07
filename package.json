@@ -11,6 +11,7 @@
   "author": "lucs",
   "contributors": [],
   "dependencies": {
+    "mongodb": "^2.2.13",
     "request": "^2.79.0"
   }
 }
