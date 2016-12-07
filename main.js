@@ -24,6 +24,8 @@ var Drone = function (id, name, mac) {
 
 var dronesSettings = new Settings("/drones?format=json");
 
+dal.clearDrone();
+
 request(dronesSettings, function (error, response, dronesString) {
 	var drones = JSON.parse(dronesString);
 	console.log(drones);
