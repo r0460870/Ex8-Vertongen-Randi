@@ -18,13 +18,17 @@ var Settings = function (url) {
 
 var dronesSettings = new Settings("/drones?format=json");
 
-request(dronesSettings, function (error, response, body) {
-	if (error)
-		throw new Error(error);
+var droneMem = [];
 
-
-
-	console.log(body);
+request(dronesSettings, function (error, response, drones) {
+	console.log(drones);
+	drones.forEach(function (drone) {
+		var droneSettings = new Settings("/drones/" + drone.id + "?format=json")
+		request(droneSettings, function (error, response, drone) {
+			console.log(drone);
+			console.log("***************************************************************************");
+		});
+	});
 });
 
 console.log("Hello World!");
