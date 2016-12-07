@@ -16,7 +16,8 @@ var Settings = function (url) {
 	};
 };
 
-var Drone = function (name, mac) {
+var Drone = function (id, name, mac) {
+	this._id = id
 	this.name = name;
 	this.mac = mac;
 };
@@ -31,7 +32,7 @@ request(dronesSettings, function (error, response, dronesString) {
 		var droneSettings = new Settings("/drones/" + drone.id + "?format=json");
 		request(droneSettings, function (error, response, droneString) {
 			var drone = JSON.parse(droneString);
-			dal.insertDrone(drone);
+			dal.insertDrone(new Drone(drone.id, drone.name, drone.mac_address));
 		});
 	});
 });
