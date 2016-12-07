@@ -16,6 +16,11 @@ var Settings = function (url) {
 	};
 };
 
+var Drone = function (name, mac) {
+	this.name = name;
+	this.mac = mac;
+};
+
 var dronesSettings = new Settings("/drones?format=json");
 
 var droneMem = [];
@@ -26,8 +31,10 @@ request(dronesSettings, function (error, response, dronesString) {
 	console.log("***************************************************************************");
 	drones.forEach(function (drone) {
 		var droneSettings = new Settings("/drones/" + drone.id + "?format=json")
-		request(droneSettings, function (error, response, drone) {
-			console.log(drone);
+		request(droneSettings, function (error, response, droneString) {
+			var drone = JSON.parse(droneString);
+			droneMem.push(new Drone(drone.name, drone.mac_address));
+			console.log(droneMem);
 			console.log("***************************************************************************");
 		});
 	});
