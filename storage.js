@@ -29,14 +29,14 @@ var dal = {
 				db.close();
 			});
 		});
-	}
-	insertFile: function(id){
+	},
+  insertFile: function(id){
 		this.connect(null,function(db){
 			db.collection('files').insert(file, function (err, result) {
 				db.close();
-		}
+		});
 	});
-)};
-};
+}
+}
 
 module.exports = dal;
