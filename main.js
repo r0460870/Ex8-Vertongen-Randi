@@ -21,12 +21,12 @@ var Drone = function (id, name, mac) {
 	this.name = name;
 	this.mac = mac;
 };
-var File = function (){
-this.id = id
+var File = function (id){
+this.id = id;
 };
 
 var dronesSettings = new Settings("/drones?format=json");
-var filesettings = new Settings("/files?format=json");
+var filesSettings = new Settings("/files?format=json");
 dal.clearDrone();
 
 request(dronesSettings, function (error, response, dronesString) {
@@ -42,7 +42,7 @@ request(dronesSettings, function (error, response, dronesString) {
 	});
 });
 
-request(fileSettings, function (error, response, fileString) {
+request(filesSettings, function (error, response, fileString) {
 	var files = JSON.parse(fileString);
 	console.log(files);
 	console.log("***************************************************************************");
