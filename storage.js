@@ -10,10 +10,10 @@ var dal = {
 		MongoClient.connect(url, function (error, db) {
 			if (error)
 				throw new Error(error);
+
 			console.log("Connected successfully to server");
-			result(db);
-		});
-	},
+			result(db); }
+	)},
 	clearDrone: function (call) {
 		this.connect(null, function (db) {
 			db.collection('drones').drop(function (err, result) {
@@ -30,6 +30,13 @@ var dal = {
 			});
 		});
 	}
+	insertFile: function(id){
+		this.connect(null,function(db){
+			db.collection('files').insert(file, function (err, result) {
+				db.close();
+		}
+	});
+)};
 };
 
 module.exports = dal;
