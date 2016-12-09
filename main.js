@@ -1,4 +1,4 @@
-// >$ npm install request --save 
+// >$ npm install request --save
 var request = require("request");
 var dal = require('./storage.js');
 
@@ -21,9 +21,12 @@ var Drone = function (id, name, mac) {
 	this.name = name;
 	this.mac = mac;
 };
+var File = function (){
+this.id = id
+};
 
 var dronesSettings = new Settings("/drones?format=json");
-
+var filesettings = new Settings("/files?format=json");
 dal.clearDrone();
 
 request(dronesSettings, function (error, response, dronesString) {
@@ -38,5 +41,19 @@ request(dronesSettings, function (error, response, dronesString) {
 		});
 	});
 });
+
+request(fileSettings, function (error, response, fileString) {
+	var files = JSON.parse(fileString);
+	console.log(files);
+	console.log("***************************************************************************");
+	drones.forEach(function (file) {
+		var filesettings = new Settings("/files/" + file.id + "?format=json");
+		request(filesettings, function (error, response, fileString) {
+			var file = JSON.parse(fileString);
+			dal.insertFile(new File(file.id));
+		});
+	});
+});
+
 
 console.log("Hello World!");
