@@ -36,7 +36,7 @@ var dal = {
 				db.close();
 		});
 	});
-}
+},
 insertContent: function(id){
 	this.connect(null,function(db){
 		db.collection('contents').insert(content, function (err, result) {

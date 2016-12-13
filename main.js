@@ -33,8 +33,6 @@ var Content = function (id, mac_address, datetime) {
 
 
 var dronesSettings = new Settings("/drones?format=json");
-var filesSettings = new Settings("/files?drone_id.is="+ drone.id +"format=json");
-var filecontentSettings = new Settings("/files/"+ file.id+ '/contents?format=json');)
 dal.clearDrone();
 
 request(dronesSettings, function (error, response, dronesString) {
@@ -46,7 +44,7 @@ request(dronesSettings, function (error, response, dronesString) {
 				request(droneSettings, function (error, response, droneString) {
 				var drone = JSON.parse(droneString);
 				dal.insertDrone(new Drone(drone.id, drone.name, drone.mac_address));
-
+				var filesSettings = new Settings("/files?drone_id.is="+ drone.id +"format=json");
 				request(filesSettings, function (error, response, filesString) {
 						var files = JSON.parse(filesString);
 						console.log(files);
@@ -57,6 +55,7 @@ request(dronesSettings, function (error, response, dronesString) {
 								request(filesettings, function (error, response, fileString) {
 										var file = JSON.parse(filesString);
 										dal.insertFile(new File(file.id));
+										var filecontentSettings = new Settings("/files/"+ file.id+ '/contents?format=json');
 										request(filecontentSettings, function(error, response, ContentsString){
 												var contents = JSON.parse(ContentsString);
 												console.log(files);
