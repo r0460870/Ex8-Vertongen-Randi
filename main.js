@@ -34,6 +34,7 @@ var Content = function (id, mac_address, datetime) {
 
 var dronesSettings = new Settings("/drones?format=json");
 var filesSettings = new Settings("/files?drone_id.is="+ drone.id +"format=json");
+var filecontentSettings = new Settings("/files/"+ file.id+ '/contents?format=json');)
 dal.clearDrone();
 
 request(dronesSettings, function (error, response, dronesString) {
@@ -51,12 +52,13 @@ request(dronesSettings, function (error, response, dronesString) {
 						console.log(files);
 						console.log("test");
 						console.log("***************************************************************************");
-						drones.forEach(function (file) {
+					files.forEach(function (file) {
 								var filesettings = new Settings("/files/" + file.id + "?format=json");
 								request(filesettings, function (error, response, fileString) {
 										var file = JSON.parse(filesString);
 										dal.insertFile(new File(file.id));
-										
+										request(filecontentSettings, function)
+
 		});
 	});
 });
