@@ -21,9 +21,20 @@ var Drone = function (id, name, mac) {
 	this.name = name;
 	this.mac = mac;
 };
-var File = function (id){
+var File = function (id,  date_first_record, date_last_record, date_loaded, contents_count){
 this.id = id;
 };
+
+var Content = function (id, mac_address, datetime) {
+    this._id = id;
+    this.mac_address = mac_address;
+    this.datetime = datetime;
+    this.rssi = rssi;
+    this.ref = ref;
+    this.url = url
+
+};
+
 
 var dronesSettings = new Settings("/drones?format=json");
 var filesSettings = new Settings("/files?format=json");
@@ -45,6 +56,7 @@ request(dronesSettings, function (error, response, dronesString) {
 request(filesSettings, function (error, response, fileString) {
 	var files = JSON.parse(fileString);
 	console.log(files);
+		console.log("test");
 	console.log("***************************************************************************");
 	drones.forEach(function (file) {
 		var filesettings = new Settings("/files/" + file.id + "?format=json");
