@@ -57,10 +57,21 @@ request(dronesSettings, function (error, response, dronesString) {
 								request(filesettings, function (error, response, fileString) {
 										var file = JSON.parse(filesString);
 										dal.insertFile(new File(file.id));
-										request(filecontentSettings, function)
-
-		});
-	});
+										request(filecontentSettings, function(error, response, ContentsString){
+												var contents = JSON.parse(ContentsString);
+												console.log(files);
+												console.log("test")
+												console.log("***************************************************************************");
+												contents.forEach(function(content){
+														var filecontentSettings = new Settings("/files/"+ file.id + "/contents/"+content.id+  "?format=json");
+														request(filecontentSettings,function(error, response, ContentsString){
+																var content = JSON.parse(contentsString);
+																dal.insertContent(new content(content.id,content.mac_address, content.datetime));
+});
+});
+});
+});
+});
 });
 });
 });
