@@ -37,6 +37,13 @@ var dal = {
 		});
 	});
 }
+insertContent: function(id){
+	this.connect(null,function(db){
+		db.collection('contents').insert(content, function (err, result) {
+			db.close();
+	});
+});
+}
 }
 
 module.exports = dal;
